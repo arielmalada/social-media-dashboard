@@ -1,4 +1,4 @@
-import { get, post, put, deleteData } from "./api";
+import { get, post, patch, deleteData } from "./api";
 
 export const getPost = async (id) => {
   try {
@@ -20,7 +20,7 @@ export const addPost = async (data) => {
 
 export const editPost = async (id, data) => {
   try {
-    const res = await put(`posts/${id}`, data);
+    const res = await patch(`posts/${id}`, data);
     return res;
   } catch (error) {
     console.log(error);
