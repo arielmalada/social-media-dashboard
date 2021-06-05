@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { Card, CardBody, CardText, CardTitle, Col, Container, Row } from "reactstrap";
+import { Card, CardBody, CardLink, CardText, CardTitle, Col, Container, Row } from "reactstrap";
 import { fetchUserDetail } from "../store/actions/userDetail";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAt, faGlobe, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import Avatar from "react-avatar";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -31,6 +34,9 @@ const DetailUser = () => {
   return (
     <Container>
       <div className="text-center">
+        <div>
+          <Avatar name={name} round/>
+        </div>
         {name} ( {username} )
       </div>
       <Row>
@@ -38,20 +44,20 @@ const DetailUser = () => {
           <Card className="my-2">
             <CardBody>
               <CardTitle>Intro</CardTitle>
-              <div>Email {email}</div>
-              <div>{website}</div>
+              <div><FontAwesomeIcon icon={faAt} /> {email}</div>
+              <div><FontAwesomeIcon icon={faGlobe} /> {website}</div>
             </CardBody>
           </Card>
           <Card className="my-2">
             <CardBody>
-              <CardTitle>Albums</CardTitle>
-              <Row>
+              <CardTitle className="d-flex justify-content-between">Albums <FontAwesomeIcon icon={faChevronRight} /></CardTitle>
+              <Row className="no-gutters">
                 {
                   albums.map((album) => {
                     const { id, title } = album
                     return (
-                      <Col xs={3} key={id} className="text-truncate">
-                        {title}
+                      <Col xs={4} key={id} className="text-truncate text-center mb-2">
+                        <Avatar name={title}/>
                       </Col>
                     )
                   })
@@ -69,6 +75,7 @@ const DetailUser = () => {
                   <CardBody>
                     <CardTitle>{name}</CardTitle>
                     <CardText>{title}</CardText>
+                    <CardLink href="#">Comments</CardLink>
                   </CardBody>
                 </Card>
               )
