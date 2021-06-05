@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../services/users";
-import Page404 from "../404";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../store/actions/users"
 
 const Users = () => {
-  const [listData, setList] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getUsers().then(
-      (res) => {
-        setList(res.data);
-      }
-    );
-  }, []);
-  
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  const usersLists = useSelector(
+    (state) => state.users.data
+  );
+
+  const [listData, setList] = useState([]);
+  // console.log(usersLists);
+  useEffect(() => {
+    if (usersLists) return setList(usersLists);
+    // 
+  }, [usersLists]);
   return ( 
     <div>
       {
