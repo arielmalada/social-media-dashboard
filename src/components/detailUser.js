@@ -20,15 +20,45 @@ const DetailUser = () => {
     dispatch(fetchUserDetail(userId));
   }, [dispatch, userId]);
 
-  const { name = '', username = '', posts = [] } = { ...userData };
+  const {
+    name = '',
+    username = '',
+    posts = [],
+    albums = [],
+    email = '',
+    website = ''
+  } = { ...userData };
   return (
     <Container>
-      <div >
+      <div className="text-center">
         {name} ( {username} )
       </div>
       <Row>
         <Col xs={12} md={5}>
-          sidebar
+          <Card className="my-2">
+            <CardBody>
+              <CardTitle>Intro</CardTitle>
+              <div>Email {email}</div>
+              <div>{website}</div>
+            </CardBody>
+          </Card>
+          <Card className="my-2">
+            <CardBody>
+              <CardTitle>Albums</CardTitle>
+              <Row>
+                {
+                  albums.map((album) => {
+                    const { id, title } = album
+                    return (
+                      <Col xs={3} key={id} className="text-truncate">
+                        {title}
+                      </Col>
+                    )
+                  })
+                }
+              </Row>
+            </CardBody>
+          </Card>
         </Col>
         <Col>
           {
