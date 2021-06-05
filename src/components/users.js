@@ -23,7 +23,11 @@ const Users = () => {
       {
         listData.map((item) => {
           const { id, name } = item;
-          return <div key={id}>{name}</div>
+          return (
+            <a href={`/${id}`}>
+              <div key={id}>{name}</div>
+            </a>
+          )
         })
       }
     </div>
