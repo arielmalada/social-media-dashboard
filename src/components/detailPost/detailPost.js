@@ -33,7 +33,7 @@ const DetailPost = () => {
   }, [dispatch, postId, userId]);
   const { name } = { ...userData }
   return (
-    <Container className="my-2">
+    <div className="my-2">
       <PostCard {...postData} name={name} setModal={setModalPost} setModalData={setModalPostData}>
         <div className="d-flex flex-row-reverse">
           <div >{postCommentsData.length} Comments</div>
@@ -45,7 +45,7 @@ const DetailPost = () => {
 
       { modalPost && <ModalEdit modal={modalPost} setModal={setModalPost} {...modalPostData} editAction={editPostDetailAction} />}
 
-    </Container>
+    </div>
   );
 }
 

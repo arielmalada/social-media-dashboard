@@ -58,7 +58,7 @@ const PostCard = (props) => {
             <div><FontAwesomeIcon icon={faUserFriends} size="xs" /></div>
           </span>
         </CardTitle>
-        <CardText>{title}</CardText>
+        <CardText className="font-weight-bold">{title}</CardText>
         <CardText>{body}</CardText>
         {props.children}
       </CardBody>
