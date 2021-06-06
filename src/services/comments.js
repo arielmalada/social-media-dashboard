@@ -1,4 +1,4 @@
-import { get, post, patch, deleteData  } from "./api";
+import { get, post, put, deleteData  } from "./api";
 
 export const getComments = async (id) => {
   try {
@@ -20,7 +20,7 @@ export const addComment = async (data) => {
 
 export const editComment = async (id, data) => {
   try {
-    const res = await patch(`comments/${id}`, data);
+    const res = await put(`comments/${id}`, data);
     return res;
   } catch (error) {
     console.log(error);

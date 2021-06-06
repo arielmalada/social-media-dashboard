@@ -10,11 +10,25 @@ import { deletePostCommentAction, editPostCommentAction } from "../../store/acti
 
 const CommentCard = (props) => {
   const dispatch = useDispatch();
-  const { name: commentUserName, email: commentUserMail, body: commentBody, id: commentId } = props;
-  const { register, handleSubmit } = useForm();
+  const { name: commentUserName, email: commentUserMail, body: commentBody, id: commentId, postId } = props;
+  const { register: registerCard, handleSubmit: handleSubmitCard } = useForm({
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+    defaultValues: "",
+    validateCriteriaMode: "all",
+    submitFocusError: true,
+    nativeValidation: false,
+  });
   const [editCommentState, setEditCommentState] = useState(false);
   const onSubmit = async (id, data) => {
-    return editComment(id, data).then(
+    const dataRes = {
+      postId: postId,
+      id: commentId,
+      name: commentUserName,
+      email: commentUserMail,
+      ...data
+    }
+    return editComment(id, dataRes).then(
       (res) => {
         setEditCommentState(false);
         return dispatch(editPostCommentAction(id, res.data));
@@ -25,10 +39,10 @@ const CommentCard = (props) => {
 
   }
   const deleteCommentPost = (id) => deleteComment().then(
-      (res) =>
-        dispatch(deletePostCommentAction(id))
-    ).catch(
-      (error) => console.log(error)
+    (res) =>
+      dispatch(deletePostCommentAction(id))
+  ).catch(
+    (error) => console.log(error)
   )
 
   return (
@@ -44,11 +58,11 @@ const CommentCard = (props) => {
               {
                 !editCommentState ?
                   commentBody :
-                  <form className="form-inline" onSubmit={handleSubmit((data) => onSubmit(commentId, data))}>
-                    <textarea {...register("body")} defaultValue={commentBody} className="form-control w-100" placeholder="what's on your mind" />
+                  <form className="form-inline" onSubmit={handleSubmitCard((data) => onSubmit(commentId, data))}>
+                    <textarea {...registerCard("body")} defaultValue={commentBody} className="form-control w-100" placeholder="what's on your mind" />
                     <div className="d-flex flex-row-reverse flex-grow w-100 m-2">
                       <button type="submit" className="btn btn-primary mx-2">Post</button>
-                      <button className="btn btn-danger mx-2" onClick={()=> setEditCommentState(false)}>Cancel</button>
+                      <button className="btn btn-danger mx-2" onClick={() => setEditCommentState(false)}>Cancel</button>
                     </div>
                   </form>
               }
