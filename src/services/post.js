@@ -12,7 +12,6 @@ export const getPost = async (id) => {
 export const getPostDetail = async (id) => {
   try {
     const res = await get(`posts/${id}`);
-    console.log(res);
     return res;
   } catch (error) {
     console.log(error);

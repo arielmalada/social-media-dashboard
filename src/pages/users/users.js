@@ -15,10 +15,8 @@ const Users = () => {
   );
 
   const [listData, setList] = useState([]);
-  // console.log(usersLists);
   useEffect(() => {
     if (usersLists) return setList(usersLists);
-    // 
   }, [usersLists]);
   return ( 
     <div>
@@ -27,7 +25,7 @@ const Users = () => {
         listData.map((item) => {
           const { id, name } = item;
           return (
-            <Link to={`/${id}`}>
+            <Link to={`/user/${id}`}>
               <Card key={id} className="m-2">
                 <CardBody>{name}</CardBody>
               </Card>

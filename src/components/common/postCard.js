@@ -1,10 +1,8 @@
 import { faEllipsisV, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Avatar from "react-avatar";
-import { useDispatch } from "react-redux";
 import { Card, CardBody, CardText, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
-import { deletePost } from "../../services/post";
-import { deleteUserPostsAction } from "../../store/actions/userDetail";
+
 
 const PostCard = (props) => {
   const { 
@@ -15,17 +13,9 @@ const PostCard = (props) => {
     body, 
     setModal, 
     setModalData, 
-    className =''
-  } = props;
-  const dispatch = useDispatch();
-  const deleteUserPost = (id) => {
-    deletePost(id).then(
-      (res) =>
-        dispatch(deleteUserPostsAction(id))
-    ).catch(
-      (error) => console.log(error)
-    )
-  };
+    className ='',
+    deletePost
+  } = props;  
   const editUserPost = (id, title, body) => {
     setModal(true);
     const props = {
@@ -47,7 +37,7 @@ const PostCard = (props) => {
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem onClick={() => editUserPost(id, title, body)}>Edit</DropdownItem>
-              <DropdownItem onClick={() => deleteUserPost(id)}>Delete</DropdownItem>
+              <DropdownItem onClick={() => deletePost(id)}>Delete</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>

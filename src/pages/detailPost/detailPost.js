@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { Container } from "reactstrap";
+import { useHistory, useParams } from 'react-router-dom';
 import { fetchPostDetail, editPostDetailAction } from "../../store/actions/postDetail";
-import ModalEdit from "../common/modalEdit";
-import PostCard from "../common/postCard";
-import CommentCard from "../common/commentCard";
+import ModalEdit from "../../components/common/modalEdit";
+import PostCard from "../../components/common/postCard";
+import CommentCard from "../../components/common/commentCard";
+import { deleteUserPostsAction } from "../../store/actions/userDetail";
+import { deletePost } from "../../services/post";
 
 const DetailPost = () => {
   const { userId, postId } = useParams();
@@ -27,6 +28,20 @@ const DetailPost = () => {
     if (postComments) setPosts(postComments);
   }, [postDetail, userDetail, postComments]);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const goBack = () => {
+    history.goBack()
+  }
+  const deletePostDetail = (id) => {
+    deletePost(id).then(
+      (res) => {
+        dispatch(deleteUserPostsAction(id))
+        return (goBack())
+      }
+    ).catch(
+      (error) => console.log(error)
+    )
+  };
 
   useEffect(() => {
     dispatch(fetchPostDetail(userId, postId));
@@ -34,7 +49,13 @@ const DetailPost = () => {
   const { name } = { ...userData }
   return (
     <div className="my-2">
-      <PostCard {...postData} name={name} setModal={setModalPost} setModalData={setModalPostData}>
+      <PostCard
+        {...postData}
+        name={name}
+        setModal={setModalPost}
+        setModalData={setModalPostData}
+        deletePost={deletePostDetail}
+      >
         <div className="d-flex flex-row-reverse">
           <div >{postCommentsData.length} Comments</div>
         </div>

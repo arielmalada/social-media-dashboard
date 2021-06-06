@@ -12,7 +12,6 @@ export const getAlbums = async (id) => {
 export const getAlbumsDetail = async (id) => {
   try {
     const res = await get(`albums/${id}`);
-    console.log(res);
     return res;
   } catch (error) {
     console.log(error);

@@ -2,13 +2,12 @@ import React from 'react';
 
 import './styles/index.scss';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Users from './components/users/';
-import Albums from './components/albums/';
-import DetailPhoto from './components/detailPhoto';
-import DetailUser from './components/detailUser/';
-import DetailPost from './components/detailPost/';
-import AlbumDetail from './components/albumDetail/';
+import Users from './pages/users/';
+import DetailUser from './pages/detailUser/';
+import DetailPost from './pages/detailPost/';
+import AlbumDetail from './pages/albumDetail';
 import DefaultLayout from './layouts/default';
+import Page404 from './404';
 
 function App() {
   return (
@@ -16,11 +15,10 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Users} />
-          <Route exact path='/:userId' component={DetailUser} />
-          <Route path='/:userId/post/:postId/' component={DetailPost} />
-          <Route exact path='/:userId/albums/' component={Albums} />
-          <Route exact path='/:userId/albums/:albumsId' component={AlbumDetail} />
-          <Route path='/:userId/albums/:albumId/photos/:photoId' component={DetailPhoto} />
+          <Route exact path='/user/:userId' component={DetailUser} />
+          <Route path='/user/:userId/post/:postId/' component={DetailPost} />
+          <Route exact path='/user/:userId/albums/:albumsId' component={AlbumDetail} />
+          <Route path='*' exact component={Page404} />
         </Switch>
       </BrowserRouter>
     </DefaultLayout>

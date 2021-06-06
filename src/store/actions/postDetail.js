@@ -32,7 +32,6 @@ export const deletePostCommentAction = (id) => {
 
 
 export const fetchPostDetail =  (userId, postId) => {
-  console.log(postId);
   return (dispatch) => {
     const postData = async (userId, postId) => await Promise.all([
       getPostDetail(postId),
