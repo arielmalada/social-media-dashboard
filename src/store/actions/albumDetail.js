@@ -17,7 +17,6 @@ export const fetchAlbumsDetail = (albumId) => {
     ]);
     albumData(albumId).then(
       (res) => {
-        console.log(res);
         return (
           dispatch(getAlbumDetailAction({ ...res[0].data }),
             dispatch(getAlbumPhotosAction([...res[1].data])),
