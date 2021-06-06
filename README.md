@@ -3,6 +3,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/), [Reactstrap](https://reactstrap.github.io/) and [Bootstrap 4.6](https://getbootstrap.com/).
 
+this project hosted on [Heroku](https://social-media-pacebook.herokuapp.com/)
+
   
 
   
