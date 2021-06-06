@@ -15,10 +15,8 @@ const Users = () => {
   );
 
   const [listData, setList] = useState([]);
-  // console.log(usersLists);
   useEffect(() => {
     if (usersLists) return setList(usersLists);
-    // 
   }, [usersLists]);
   return ( 
     <div>
