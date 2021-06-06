@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
-import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
+import { Card, CardBody, CardTitle, Col, Row } from "reactstrap";
 import { fetchUserDetail, editUserPostsAction, deleteUserPostsAction } from "../../store/actions/userDetail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAt, faGlobe, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faAt, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
 import PostForm from "../common/postForm";
 import ModalEdit from "../common/modalEdit";

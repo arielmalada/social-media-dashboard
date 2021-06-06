@@ -1,10 +1,8 @@
 import { faEllipsisV, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Avatar from "react-avatar";
-import { useDispatch } from "react-redux";
 import { Card, CardBody, CardText, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
-import { deletePost } from "../../services/post";
-import { deleteUserPostsAction } from "../../store/actions/userDetail";
+
 
 const PostCard = (props) => {
   const { 

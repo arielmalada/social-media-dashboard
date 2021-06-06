@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
-import { Container } from "reactstrap";
 import { fetchPostDetail, editPostDetailAction } from "../../store/actions/postDetail";
 import ModalEdit from "../common/modalEdit";
 import PostCard from "../common/postCard";

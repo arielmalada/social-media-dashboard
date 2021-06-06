@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { Card, CardBody, CardTitle, Col, Container, Row, Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Card, CardBody, CardTitle, Col, Row } from "reactstrap";
 import { fetchAlbumsDetail } from "../../store/actions/albumDetail";
 import ModalPhoto from "./modalPhoto";
 
