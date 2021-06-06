@@ -2,11 +2,11 @@ import { Card, CardBody } from "reactstrap";
 import { addPost, editPost } from "../../services/post";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addUserPostsAction, editUserPostsAction } from "../../store/actions/userDetail";
+import { addUserPostsAction } from "../../store/actions/userDetail";
 import Avatar from "react-avatar";
 
 const PostForm = (props) => {
-  const {name, userId, type, title='', body ='',} = props;
+  const {name, userId, type, title='', body ='', editAction} = props;
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
 
@@ -32,7 +32,7 @@ const PostForm = (props) => {
         return editPost(postId, data).then(
           (res) => { 
             reset({title: '', body: ''});
-            return dispatch(editUserPostsAction(postId, res.data));
+            return dispatch(editAction(postId, res.data));
           }
         ).catch(
           (error) => console.log(error)
