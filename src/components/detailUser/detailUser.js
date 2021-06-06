@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
 import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
@@ -47,7 +47,7 @@ const DetailUser = () => {
   const reversedPost = [...userPostsData].reverse();
 
   return (
-    <Container>
+    <Fragment>
       <div className="text-center">
         <div>
           <Avatar name={name} round />
@@ -65,7 +65,7 @@ const DetailUser = () => {
           </Card>
           <Card className="my-2">
             <CardBody>
-              <CardTitle className="d-flex justify-content-between">Albums <FontAwesomeIcon icon={faChevronRight} /></CardTitle>
+              <CardTitle className="d-flex justify-content-between">Albums</CardTitle>
               <Row className="no-gutters">
                 {
                   userAlbumsData.map((album) => {
@@ -98,7 +98,7 @@ const DetailUser = () => {
         </Col>
       </Row>
       { modal && <ModalEdit modal={modal} setModal={setModal} {...modalData} editAction={editUserPostsAction} />}
-    </Container>
+    </Fragment>
   );
 }
 

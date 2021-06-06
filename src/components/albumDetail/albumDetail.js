@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Card, CardBody, CardTitle, Col, Container, Row, Modal, ModalBody, ModalHeader } from "reactstrap";
@@ -13,7 +13,7 @@ const AlbumDetail = () => {
   const [modal, setModal] = useState(false);
   const [modalData, setModalData] = useState(false);
   const toggle = (title, url) => {
-    setModalData({title, url});
+    setModalData({ title, url });
     setModal(true);
   }
 
@@ -34,7 +34,7 @@ const AlbumDetail = () => {
 
   const { title } = albumData;
   return (
-    <Container>
+    <Fragment>
       <Card className="my-2">
         <CardBody>
           <CardTitle tag="h2">{title} Photos</CardTitle>
@@ -44,7 +44,7 @@ const AlbumDetail = () => {
                 const { id, title, thumbnailUrl, url } = photo
                 return (
                   <Col xs={6} md={3} key={id} className="text-truncate text-center mb-2">
-                    <img src={thumbnailUrl} alt={title} onClick={()=>toggle(title,url)}/>
+                    <img src={thumbnailUrl} alt={title} onClick={() => toggle(title, url)} />
                   </Col>
                 )
               })
@@ -53,7 +53,7 @@ const AlbumDetail = () => {
         </CardBody>
       </Card>
       {modal && <ModalPhoto modal={modal} setModal={setModal} modalData={modalData} />}
-    </Container>
+    </Fragment>
   );
 }
 
