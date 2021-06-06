@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { Card, CardBody, CardLink, CardText, CardTitle, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Row, UncontrolledDropdown } from "reactstrap";
-import { fetchUserDetail, getUserPostsAction } from "../store/actions/userDetail";
+import { Card, CardBody, CardLink, CardText, CardTitle, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from "reactstrap";
+import { fetchUserDetail, addUserPostsAction, deleteUserPostsAction } from "../store/actions/userDetail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faGlobe, faChevronRight, faUserFriends, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
 import { useForm } from "react-hook-form";
-import { Button } from "bootstrap";
-import { addPost } from "../services/post";
+import { addPost, deletePost } from "../services/post";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -16,13 +15,13 @@ const DetailUser = () => {
   const [userData, setUser] = useState(null);
   const [userPostsData, setPosts] = useState([]);
   const [userAlbumsData, setAlbums] = useState([]);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
 
-  const { 
-    data: userDetail, 
-    posts:userPosts, 
+  const {
+    data: userDetail,
+    posts: userPosts,
     albums: userAlbums
-  } = useSelector( (state) => state.userDetail);
+  } = useSelector((state) => state.userDetail);
 
   useEffect(() => {
     if (userDetail) setUser(userDetail);
@@ -36,17 +35,22 @@ const DetailUser = () => {
   }, [dispatch, userId]);
 
   const onSubmit = (id, data) => {
-    console.log()
     const dataRes = {
       id: id,
       ...data
     }
     addPost(dataRes).then(
       (res) =>
-        dispatch(getUserPostsAction([
-          ...userPostsData,
-          res.data
-        ]))
+        dispatch(addUserPostsAction(res.data))
+    ).catch(
+      (error) => console.log(error)
+    )
+  }
+
+  const deleteUserPost = (id) => {
+    deletePost(id).then(
+      (res) =>
+        dispatch(deleteUserPostsAction(id))
     ).catch(
       (error) => console.log(error)
     )
@@ -106,7 +110,7 @@ const DetailUser = () => {
                     <input {...register("body")} className="form-control" placeholder="what's on your mind" />
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Post</button>
+                <button type="submit" className="btn btn-primary btn-block">Post</button>
               </form>
             </CardBody>
           </Card>
@@ -123,6 +127,7 @@ const DetailUser = () => {
                         </DropdownToggle>
                         <DropdownMenu right>
                           <DropdownItem>Edit</DropdownItem>
+                          <DropdownItem onClick={() => deleteUserPost(id)}>Delete</DropdownItem>
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </div>
