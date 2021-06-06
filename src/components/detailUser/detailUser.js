@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
-import { Card, CardBody, CardTitle, Col, Container, Row} from "reactstrap";
+import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 import { fetchUserDetail, editUserPostsAction } from "../../store/actions/userDetail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAt, faGlobe, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { faAt, faGlobe, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
 import PostForm from "../common/postForm";
 import ModalEdit from "../common/modalEdit";
@@ -37,7 +37,7 @@ const DetailUser = () => {
 
 
 
- 
+
   const {
     name = '',
     username = '',
@@ -45,7 +45,7 @@ const DetailUser = () => {
     website = ''
   } = { ...userData };
   const reversedPost = [...userPostsData].reverse();
-  
+
   return (
     <Container>
       <div className="text-center">
@@ -72,7 +72,9 @@ const DetailUser = () => {
                     const { id, title } = album
                     return (
                       <Col xs={4} key={id} className="text-truncate text-center mb-2">
-                        <Avatar name={title} />
+                        <Link to={`/${userId}/albums/${id}`}>
+                          <Avatar name={title} />
+                        </Link>
                       </Col>
                     )
                   })
@@ -88,7 +90,7 @@ const DetailUser = () => {
               const { id } = post;
               return (
                 <PostCard key={id} className="my-2" {...post} name={name} setModal={setModal} setModalData={setModalData} >
-                   <Link to={`/${userId}/post/${id}`} className="float-right">Comments</Link>
+                  <Link to={`/${userId}/post/${id}`} className="float-right">Comments</Link>
                 </PostCard>
               )
             })

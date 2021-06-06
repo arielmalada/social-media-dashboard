@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import Avatar from "react-avatar";
-import { Container, Card, CardBody, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, CardTitle, CardText } from "reactstrap";
-import { fetchPostDetail, editPostDetailAction, editPostCommentAction } from "../../store/actions/postDetail";
-import { useForm } from "react-hook-form";
+import { Container } from "reactstrap";
+import { fetchPostDetail, editPostDetailAction } from "../../store/actions/postDetail";
 import ModalEdit from "../common/modalEdit";
 import PostCard from "../common/postCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import { editComment } from "../../services/comments";
 import CommentCard from "../common/commentCard";
 
 const DetailPost = () => {
@@ -26,7 +21,6 @@ const DetailPost = () => {
     user: userDetail
   } = useSelector((state) => state.postDetail);
 
-
   useEffect(() => {
     if (postDetail) setPost(postDetail);
     if (userDetail) setUser(userDetail);
@@ -37,9 +31,6 @@ const DetailPost = () => {
   useEffect(() => {
     dispatch(fetchPostDetail(userId, postId));
   }, [dispatch, postId, userId]);
-
-
-
   const { name } = { ...userData }
   return (
     <Container className="my-2">

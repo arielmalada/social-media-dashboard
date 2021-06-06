@@ -2,7 +2,6 @@ import { faEllipsisV, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Avatar from "react-avatar";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { Card, CardBody, CardText, CardTitle, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from "reactstrap";
 import { deletePost } from "../../services/post";
 import { deleteUserPostsAction } from "../../store/actions/userDetail";
