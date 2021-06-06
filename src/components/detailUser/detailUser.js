@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { Card, CardBody, CardLink, CardText, CardTitle, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from "reactstrap";
-import { fetchUserDetail, addUserPostsAction, deleteUserPostsAction } from "../store/actions/userDetail";
+import { fetchUserDetail, deleteUserPostsAction } from "../../store/actions/userDetail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faGlobe, faChevronRight, faUserFriends, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
-import { useForm } from "react-hook-form";
-import { addPost, deletePost } from "../services/post";
+
+import { deletePost } from "../../services/post";
+import PostForm from "./postForm";
+import ModalEdit from "./modalEdit";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -15,7 +17,8 @@ const DetailUser = () => {
   const [userData, setUser] = useState(null);
   const [userPostsData, setPosts] = useState([]);
   const [userAlbumsData, setAlbums] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const [modal, setModal] = useState(false);
+  const [modalData, setModalData] = useState(false);
 
   const {
     data: userDetail,
@@ -34,18 +37,7 @@ const DetailUser = () => {
     dispatch(fetchUserDetail(userId));
   }, [dispatch, userId]);
 
-  const onSubmit = (id, data) => {
-    const dataRes = {
-      id: id,
-      ...data
-    }
-    addPost(dataRes).then(
-      (res) =>
-        dispatch(addUserPostsAction(res.data))
-    ).catch(
-      (error) => console.log(error)
-    )
-  }
+
 
   const deleteUserPost = (id) => {
     deletePost(id).then(
@@ -62,6 +54,19 @@ const DetailUser = () => {
     website = ''
   } = { ...userData };
   const reversedPost = [...userPostsData].reverse();
+  const editUserPost = (id, title, body) => {
+    setModal(true);
+    console.log(modal);
+    const props = {
+      
+      userId,
+      name,
+      title,
+      body,
+      postId: id
+    }
+    setModalData(props);
+  }
   return (
     <Container>
       <div className="text-center">
@@ -98,22 +103,7 @@ const DetailUser = () => {
           </Card>
         </Col>
         <Col>
-          <Card>
-            <CardBody>
-              <form onSubmit={handleSubmit((data) => onSubmit(userId, data))}>
-                <div className="d-flex flex-row mb-3 align-items-center">
-                  <div>
-                    <Avatar name={name} round className="mr-2" size="48" />
-                  </div>
-                  <div className="w-100">
-                    <input {...register("title")} className="form-control mb-2" placeholder="title" />
-                    <input {...register("body")} className="form-control" placeholder="what's on your mind" />
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-primary btn-block">Post</button>
-              </form>
-            </CardBody>
-          </Card>
+          <PostForm userId={userId} name={name} type='post' />
           {
             reversedPost.map((post) => {
               const { id, title, body } = post;
@@ -126,7 +116,7 @@ const DetailUser = () => {
                           <FontAwesomeIcon icon={faEllipsisV} size="xs" />
                         </DropdownToggle>
                         <DropdownMenu right>
-                          <DropdownItem>Edit</DropdownItem>
+                          <DropdownItem onClick={() => editUserPost(id, title, body)}>Edit</DropdownItem>
                           <DropdownItem onClick={() => deleteUserPost(id)}>Delete</DropdownItem>
                         </DropdownMenu>
                       </UncontrolledDropdown>
@@ -148,6 +138,7 @@ const DetailUser = () => {
           }
         </Col>
       </Row>
+      { modal && <ModalEdit modal={modal} setModal={setModal} {...modalData} />}
     </Container>
   );
 }

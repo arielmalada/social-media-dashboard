@@ -18,6 +18,10 @@ export const addUserPostsAction = (data) => {
   return { type: 'ADD_USER_POSTS', data: data };
 };
 
+export const editUserPostsAction = (id, data) => {
+  return { type: 'EDIT_USER_POSTS', id: id, data: data };
+};
+
 export const deleteUserPostsAction = (id) => {
   return { type: 'DELETE_USER_POSTS', id: id };
 };

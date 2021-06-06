@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchUsers } from "../store/actions/users"
 
 const Users = () => {
@@ -24,9 +25,9 @@ const Users = () => {
         listData.map((item) => {
           const { id, name } = item;
           return (
-            <a href={`/${id}`}>
+            <Link to={`/${id}`}>
               <div key={id}>{name}</div>
-            </a>
+            </Link>
           )
         })
       }

@@ -6,7 +6,7 @@ import Users from './components/users';
 import Albums from './components/albums';
 import Photos from './components/photos';
 import DetailPhoto from './components/detailPhoto';
-import DetailUser from './components/detailUser';
+import DetailUser from './components/detailUser/';
 
 function App() {
   return (

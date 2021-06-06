@@ -26,10 +26,15 @@ const userDetail = (state = initialState, action) => {
         ...state
         , posts: [...state.posts, action.data]
       };
+    case 'EDIT_USER_POSTS':
+      return {
+        ...state
+        , posts: [...state.posts].map((post)=> post.id === action.id ? action.data : post)
+      };
     case 'DELETE_USER_POSTS':
       return {
         ...state
-        , posts: [...state.posts].filter((post)=>post.id !== action.id)
+        , posts: [...state.posts].filter((post) => post.id !== action.id)
       };
     default:
       return state;
