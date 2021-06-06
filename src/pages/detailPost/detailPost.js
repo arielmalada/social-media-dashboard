@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchPostDetail, editPostDetailAction } from "../../store/actions/postDetail";
-import ModalEdit from "../common/modalEdit";
-import PostCard from "../common/postCard";
-import CommentCard from "../common/commentCard";
+import ModalEdit from "../../components/common/modalEdit";
+import PostCard from "../../components/common/postCard";
+import CommentCard from "../../components/common/commentCard";
 import { deleteUserPostsAction } from "../../store/actions/userDetail";
 import { deletePost } from "../../services/post";
 

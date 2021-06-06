@@ -6,9 +6,9 @@ import { fetchUserDetail, editUserPostsAction, deleteUserPostsAction } from "../
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faGlobe } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
-import PostForm from "../common/postForm";
-import ModalEdit from "../common/modalEdit";
-import PostCard from "../common/postCard";
+import PostForm from "../../components/common/postForm";
+import ModalEdit from "../../components/common/modalEdit";
+import PostCard from "../../components/common/postCard";
 import { deletePost } from "../../services/post";
 
 const DetailUser = () => {
