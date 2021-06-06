@@ -7,14 +7,16 @@ import Albums from './components/albums';
 import Photos from './components/photos';
 import DetailPhoto from './components/detailPhoto';
 import DetailUser from './components/detailUser/';
+import DetailPost from './components/detailPost/';
 
 function App() {
   return (
     <div>
       <Switch>
         <Route exact path='/' component={Users} />
-        <Route path='/:userId/' component={DetailUser} />
-        <Route path='/:userId/albums/' component={Albums} />
+        <Route exact path='/:userId' component={DetailUser} />
+        <Route path='/:userId/post/:postId/'component={DetailPost}/>
+        <Route exact path='/:userId/albums/' component={Albums} />
         <Route path='/:userId/albums/:albumId/photos/' component={Photos} />
         <Route path='/:userId/albums/:albumId/photos/:photoId' component={DetailPhoto} />
       </Switch>
