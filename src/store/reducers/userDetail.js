@@ -21,6 +21,16 @@ const userDetail = (state = initialState, action) => {
         ...state
         , albums: action.data
       };
+    case 'ADD_USER_POSTS':
+      return {
+        ...state
+        , posts: [...state.posts, action.data]
+      };
+    case 'DELETE_USER_POSTS':
+      return {
+        ...state
+        , posts: [...state.posts].filter((post)=>post.id !== action.id)
+      };
     default:
       return state;
   }

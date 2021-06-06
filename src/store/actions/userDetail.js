@@ -14,6 +14,14 @@ export const getUserAlbumsAction = (data) => {
   return { type: 'GET_USER_ALBUMS', data: data };
 };
 
+export const addUserPostsAction = (data) => {
+  return { type: 'ADD_USER_POSTS', data: data };
+};
+
+export const deleteUserPostsAction = (id) => {
+  return { type: 'DELETE_USER_POSTS', id: id };
+};
+
 export const fetchUserDetail = (id) => {
   return (dispatch) => {
     const userData = async (id) => await Promise.all([
