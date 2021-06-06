@@ -27,7 +27,7 @@ const Users = () => {
         listData.map((item) => {
           const { id, name } = item;
           return (
-            <Link to={`/${id}`}>
+            <Link to={`/user/${id}`}>
               <Card key={id} className="m-2">
                 <CardBody>{name}</CardBody>
               </Card>

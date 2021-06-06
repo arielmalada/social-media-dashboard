@@ -79,7 +79,7 @@ const DetailUser = () => {
                     const { id, title } = album
                     return (
                       <Col xs={4} key={id} className="text-truncate text-center mb-2">
-                        <Link to={`/${userId}/albums/${id}`}>
+                        <Link to={`/user/${userId}/albums/${id}`}>
                           <Avatar name={title} />
                         </Link>
                       </Col>
@@ -104,7 +104,7 @@ const DetailUser = () => {
                   setModalData={setModalData}
                   deletePost={deleteUserPost}
                 >
-                  <Link to={`/${userId}/post/${id}`} className="float-right">Comments</Link>
+                  <Link to={`/user/${userId}/post/${id}`} className="float-right">Comments</Link>
                 </PostCard>
               )
             })
