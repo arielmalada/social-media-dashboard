@@ -1,16 +1,16 @@
 import React from 'react';
 
-import './App.css';
+import './styles/index.scss';
 import { Route, Switch } from 'react-router-dom';
 import Users from './components/users';
 import Albums from './components/albums';
 import Photos from './components/photos';
 import DetailPhoto from './components/detailPhoto';
-import DetailUser from './components/detailUser';
+import DetailUser from './components/detailUser/';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Switch>
         <Route exact path='/' component={Users} />
         <Route path='/:userId/' component={DetailUser} />
