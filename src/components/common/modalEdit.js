@@ -1,4 +1,4 @@
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {  Modal, ModalHeader, ModalBody } from 'reactstrap';
 import PostForm from './postForm';
 
 const ModalEdit = (props) => {
@@ -7,7 +7,7 @@ const ModalEdit = (props) => {
   const toggle = () => setModal(false);
   return (
     <Modal isOpen={modal} toggle={toggle} className={className}>
-      <ModalHeader toggle={toggle}>edit post</ModalHeader>
+      <ModalHeader toggle={toggle}>Edit Post</ModalHeader>
       <ModalBody>
         <PostForm {...rest} type='edit' />
       </ModalBody>

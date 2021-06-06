@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { Card, CardBody, CardLink, CardText, CardTitle, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from "reactstrap";
-import { fetchUserDetail, deleteUserPostsAction } from "../../store/actions/userDetail";
+import { Link, useParams } from 'react-router-dom';
+import { Card, CardBody, CardTitle, Col, Container, Row} from "reactstrap";
+import { fetchUserDetail, editUserPostsAction } from "../../store/actions/userDetail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAt, faGlobe, faChevronRight, faUserFriends, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faAt, faGlobe, faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
-
-import { deletePost } from "../../services/post";
-import PostForm from "./postForm";
-import ModalEdit from "./modalEdit";
+import PostForm from "../common/postForm";
+import ModalEdit from "../common/modalEdit";
+import PostCard from "../common/postCard";
 
 const DetailUser = () => {
   const { userId } = useParams();
-
   const [userData, setUser] = useState(null);
   const [userPostsData, setPosts] = useState([]);
   const [userAlbumsData, setAlbums] = useState([]);
@@ -39,14 +37,7 @@ const DetailUser = () => {
 
 
 
-  const deleteUserPost = (id) => {
-    deletePost(id).then(
-      (res) =>
-        dispatch(deleteUserPostsAction(id))
-    ).catch(
-      (error) => console.log(error)
-    )
-  }
+ 
   const {
     name = '',
     username = '',
@@ -54,19 +45,7 @@ const DetailUser = () => {
     website = ''
   } = { ...userData };
   const reversedPost = [...userPostsData].reverse();
-  const editUserPost = (id, title, body) => {
-    setModal(true);
-    console.log(modal);
-    const props = {
-      
-      userId,
-      name,
-      title,
-      body,
-      postId: id
-    }
-    setModalData(props);
-  }
+  
   return (
     <Container>
       <div className="text-center">
@@ -106,39 +85,17 @@ const DetailUser = () => {
           <PostForm userId={userId} name={name} type='post' />
           {
             reversedPost.map((post) => {
-              const { id, title, body } = post;
+              const { id } = post;
               return (
-                <Card key={id} className="my-2">
-                  <CardBody>
-                    <div className="float-right">
-                      <UncontrolledDropdown>
-                        <DropdownToggle color="link">
-                          <FontAwesomeIcon icon={faEllipsisV} size="xs" />
-                        </DropdownToggle>
-                        <DropdownMenu right>
-                          <DropdownItem onClick={() => editUserPost(id, title, body)}>Edit</DropdownItem>
-                          <DropdownItem onClick={() => deleteUserPost(id)}>Delete</DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
-                    </div>
-                    <CardTitle className="d-flex">
-                      <Avatar name={name} round className="mr-2" size="48" />
-                      <span>
-                        <div>{name}</div>
-                        <div><FontAwesomeIcon icon={faUserFriends} size="xs" /></div>
-                      </span>
-                    </CardTitle>
-                    <CardText>{title}</CardText>
-                    <CardText>{body}</CardText>
-                    <CardLink href="#" className="float-right">Comments</CardLink>
-                  </CardBody>
-                </Card>
+                <PostCard key={id} className="my-2" {...post} name={name} setModal={setModal} setModalData={setModalData} >
+                   <Link to={`/${userId}/post/${id}`} className="float-right">Comments</Link>
+                </PostCard>
               )
             })
           }
         </Col>
       </Row>
-      { modal && <ModalEdit modal={modal} setModal={setModal} {...modalData} />}
+      { modal && <ModalEdit modal={modal} setModal={setModal} {...modalData} editAction={editUserPostsAction} />}
     </Container>
   );
 }
