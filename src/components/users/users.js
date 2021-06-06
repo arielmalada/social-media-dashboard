@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchUsers } from "../store/actions/users"
+import { Card, CardBody } from "reactstrap";
+import { fetchUsers } from "../../store/actions/users"
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,15 @@ const Users = () => {
   }, [usersLists]);
   return ( 
     <div>
+      <h1 className="text-center">Social Media Dashboard</h1>
       {
         listData.map((item) => {
           const { id, name } = item;
           return (
             <Link to={`/${id}`}>
-              <div key={id}>{name}</div>
+              <Card key={id} className="m-2">
+                <CardBody>{name}</CardBody>
+              </Card>
             </Link>
           )
         })

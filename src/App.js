@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles/index.scss';
 import { Route, Switch } from 'react-router-dom';
-import Users from './components/users';
+import Users from './components/users/';
 import Albums from './components/albums';
 import Photos from './components/photos';
 import DetailPhoto from './components/detailPhoto';
