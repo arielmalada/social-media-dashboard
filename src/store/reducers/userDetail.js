@@ -1,5 +1,7 @@
 const initialState = {
   data: null,
+  posts: null,
+  albums: null
 };
 
 const userDetail = (state = initialState, action) => {
@@ -7,7 +9,17 @@ const userDetail = (state = initialState, action) => {
     case 'GET_USER_DETAIL':
       return {
         ...state
-        ,data: action.data
+        , data: action.data
+      };
+    case 'GET_USER_POSTS':
+      return {
+        ...state
+        , posts: action.data
+      };
+    case 'GET_USER_ALBUMS':
+      return {
+        ...state
+        , albums: action.data
       };
     default:
       return state;
