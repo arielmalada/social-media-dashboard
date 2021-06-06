@@ -2,42 +2,62 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { Card, CardBody, CardLink, CardText, CardTitle, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Row, UncontrolledDropdown } from "reactstrap";
-import { fetchUserDetail } from "../store/actions/userDetail";
+import { fetchUserDetail, getUserPostsAction } from "../store/actions/userDetail";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAt, faGlobe, faChevronRight, faUserFriends, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import Avatar from "react-avatar";
 import { useForm } from "react-hook-form";
 import { Button } from "bootstrap";
+import { addPost } from "../services/post";
 
 const DetailUser = () => {
   const { userId } = useParams();
+
   const [userData, setUser] = useState(null);
+  const [userPostsData, setPosts] = useState([]);
+  const [userAlbumsData, setAlbums] = useState([]);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-  }
-  const userDetail = useSelector(
-    (state) => state.userDetail.data
-  );
+
+  const { 
+    data: userDetail, 
+    posts:userPosts, 
+    albums: userAlbums
+  } = useSelector( (state) => state.userDetail);
 
   useEffect(() => {
     if (userDetail) setUser(userDetail);
-  }, [userDetail]);
-  const dispatch = useDispatch();
+    if (userPosts) setPosts(userPosts);
+    if (userAlbums) setAlbums(userAlbums);
+  }, [userDetail, userPosts, userAlbums]);
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUserDetail(userId));
   }, [dispatch, userId]);
 
+  const onSubmit = (id, data) => {
+    console.log()
+    const dataRes = {
+      id: id,
+      ...data
+    }
+    addPost(dataRes).then(
+      (res) =>
+        dispatch(getUserPostsAction([
+          ...userPostsData,
+          res.data
+        ]))
+    ).catch(
+      (error) => console.log(error)
+    )
+  }
   const {
     name = '',
     username = '',
-    posts = [],
-    albums = [],
     email = '',
     website = ''
   } = { ...userData };
-  const reversedPost = [...posts].reverse();
+  const reversedPost = [...userPostsData].reverse();
   return (
     <Container>
       <div className="text-center">
@@ -60,7 +80,7 @@ const DetailUser = () => {
               <CardTitle className="d-flex justify-content-between">Albums <FontAwesomeIcon icon={faChevronRight} /></CardTitle>
               <Row className="no-gutters">
                 {
-                  albums.map((album) => {
+                  userAlbumsData.map((album) => {
                     const { id, title } = album
                     return (
                       <Col xs={4} key={id} className="text-truncate text-center mb-2">
@@ -76,12 +96,12 @@ const DetailUser = () => {
         <Col>
           <Card>
             <CardBody>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit((data) => onSubmit(userId, data))}>
                 <div className="d-flex flex-row mb-3 align-items-center">
                   <div>
                     <Avatar name={name} round className="mr-2" size="48" />
                   </div>
-                  <div  className="w-100">
+                  <div className="w-100">
                     <input {...register("title")} className="form-control mb-2" placeholder="title" />
                     <input {...register("body")} className="form-control" placeholder="what's on your mind" />
                   </div>
