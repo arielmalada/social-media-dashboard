@@ -46,7 +46,8 @@ const DetailPost = () => {
   useEffect(() => {
     dispatch(fetchPostDetail(userId, postId));
   }, [dispatch, postId, userId]);
-  const { name } = { ...userData }
+  const { name } = { ...userData };
+  const reversedComments = [...postCommentsData].reverse();
   return (
     <div className="my-2">
       <PostCard
@@ -60,7 +61,7 @@ const DetailPost = () => {
           <div >{postCommentsData.length} Comments</div>
         </div>
         <div className="py-3">
-          {postCommentsData.map((comment) => <CommentCard {...comment} />)}
+          {reversedComments.map((comment) => <CommentCard {...comment} />)}
         </div>
       </PostCard>
 
