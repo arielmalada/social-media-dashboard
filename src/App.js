@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './styles/index.scss';
-import { BrowserRouter, MemoryRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Users from './pages/users/';
 import DetailUser from './pages/detailUser/';
 import DetailPost from './pages/detailPost/';
@@ -13,7 +13,7 @@ function App() {
   return (
     <DefaultLayout>
       <Switch>
-        <Route exact path='/' component={Users} />
+      <Route exact path='/' component={Users} />
         <Route exact path='/user/:userId' component={DetailUser} />
         <Route path='/user/:userId/post/:postId/' component={DetailPost} />
         <Route exact path='/user/:userId/albums/:albumsId' component={AlbumDetail} />
